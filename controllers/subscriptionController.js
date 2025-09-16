@@ -47,7 +47,7 @@ async function checkSubscriptionStatus(req, res) {
         const status = await userModel.checkUserStatus(id);
         const subscription_status = status.subscription;
 
-        return res.status(200).json({success:true,message:`User status is ${subscription_status}`})
+        return res.status(200).json({success:true,message:`User subscription is ${subscription_status}`})
         
     } catch (error) {
         return res.status(500).json({success:false, message:error.message})
