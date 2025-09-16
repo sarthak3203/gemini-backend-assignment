@@ -13,7 +13,9 @@ const authMiddleware = require("./middlewares/authMiddleware.js");
 const redis = require("./config/redis.js");
 // const errorMiddleware = require("./middlewares/errorMiddleware");
 
-const PORT = process.env.PORT;
+const { startWorker } = require("./worker/geminiWorker.js"); // ✅ import worker
+
+const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(express.json());
@@ -30,8 +32,7 @@ app.use("/", subscriptionRoutes);
 
 //app.use(errorMiddleware);
 
-
-
 app.listen(PORT, () => {
   console.log(`🚀 Server started at http://localhost:${PORT}`);
+  startWorker(); // ✅ start worker along with server
 });
