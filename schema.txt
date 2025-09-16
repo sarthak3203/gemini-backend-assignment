@@ -1,0 +1,46 @@
+JUST FOR REFERENCE
+
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    mobile VARCHAR(15) UNIQUE NOT NULL,
+    password_hash TEXT,
+    name VARCHAR(100),
+    subscription VARCHAR(20) DEFAULT 'BASIC',
+    stripe_customer_id TEXT,
+    created_at TIMESTAMP DEFAULT now(),
+    updated_at TIMESTAMP DEFAULT now()
+);
+
+
+CREATE TABLE otps (
+    id SERIAL PRIMARY KEY,
+    mobile VARCHAR(15) NOT NULL,
+    otp_code VARCHAR(6) NOT NULL,
+    purpose VARCHAR(20) NOT NULL, -- e.g., LOGIN or RESET_PASSWORD
+    expires_at TIMESTAMPTZ NOT NULL,
+    is_used BOOLEAN DEFAULT false,
+    created_at TIMESTAMPTZ DEFAULT now()
+);
+
+
+
+CREATE TABLE chatroom (
+    id SERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    user_id INTEGER NOT NULL,
+    created_by VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW(),
+    updated_at TIMESTAMP DEFAULT NOW()
+);
+
+
+
+CREATE TABLE messages (
+  id SERIAL PRIMARY KEY,
+  chatroom_id INTEGER NOT NULL,
+  sender INTEGER NOT NULL,
+  message_text TEXT NOT NULL,
+  status VARCHAR(50),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+);
